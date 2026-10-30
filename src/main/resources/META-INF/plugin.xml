@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>com.conorobrien.godiagnostics</id>
+    <name>Go Diagnostics</name>
+    <vendor>Conor O'Brien</vendor>
+    <description><![CDATA[
+        <p>Inline Go compile errors and vet checks in the free IntelliJ IDEA, powered by <code>gopls</code>.</p>
+        <ul>
+            <li>Syntax, type and compile errors underlined as you type, before you save or build</li>
+            <li><code>go vet</code>-style analyzers, optional staticcheck, and <code>go.mod</code> problems</li>
+            <li>gopls quick fixes on <kbd>Alt+Enter</kbd></li>
+        </ul>
+        <p>Requires <code>gopls</code>: <code>go install golang.org/x/tools/gopls@latest</code>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lsp</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <platform.lsp.integrationProvider
+                implementation="com.conorobrien.godiagnostics.GoplsIntegrationProvider"/>
+
+        <applicationConfigurable
+                parentId="tools"
+                id="com.conorobrien.godiagnostics.settings"
+                displayName="Go Diagnostics"
+                instance="com.conorobrien.godiagnostics.GoDiagnosticsConfigurable"/>
+
+        <notificationGroup id="Go Diagnostics" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
